@@ -1,0 +1,8 @@
+= error_messages_for :page
+= form_for :page, :url => pages_url, :html => { :method => :post } do |f|
+  %p Title:
+    = f.text_field :title, :size => 60
+  %p Body:
+    = f.text_area :body, :rows => 20, :cols => 60
+  = submit_tag 'Save'
+  = link_to 'cancel', pages_url

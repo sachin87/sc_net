@@ -1,0 +1,21 @@
+!DOCTYPE html
+%html
+%head
+  %title SocialNetworking
+  = stylesheet_link_tag "application"
+  = javascript_include_tag "application"
+  = csrf_meta_tags
+%body
+  #container
+   #header
+     = image_tag 'logo.png', :alt => "RailsCoders"
+   #sidemenu
+     = render 'layouts/menu
+   #content
+     - if flash[:notice]
+       #notice"
+         = flash[:notice]
+     - if flash[:error]
+       #error
+         = flash[:error]
+     = yield

@@ -1,0 +1,8 @@
+.bundle
+db/database.yml
+log/*.log
+tmp/
+config/database.yml
+nbproject/*
+*.swp
+test/
