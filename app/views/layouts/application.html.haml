@@ -6,16 +6,20 @@
   = javascript_include_tag "application"
   = csrf_meta_tags
 %body
+  - if user_signed_in?
+    = current_user.email
+    = link_to 'My info', edit_user_registration_path
+    = link_to 'Sign out', destroy_user_session_path, :method => :delete
   #container
-   #header
-     = image_tag 'logo.png', :alt => "RailsCoders"
-   #sidemenu
-     = render 'layouts/menu
-   #content
-     - if flash[:notice]
-       #notice"
-         = flash[:notice]
-     - if flash[:error]
-       #error
-         = flash[:error]
-     = yield
+    #header
+      = image_tag 'logo.png', :alt => "RailsCoders"
+    #sidemenu
+      = render 'layouts/menu'
+    #content
+      - if flash[:notice]
+        #notice
+          = flash[:notice]
+      - if flash[:error]
+        #error
+          = flash[:error]
+      = yield

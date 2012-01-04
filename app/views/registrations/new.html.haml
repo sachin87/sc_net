@@ -3,8 +3,9 @@
   = f.error_notification
   .inputs
     = f.input :email, :required => true, :autofocus => true
-    = f.input :password, :required => true
-    = f.input :password_confirmation, :required => true
+    - @user.password_required?
+      = f.input :password, :required => true
+      = f.input :password_confirmation, :required => true
   .actions
     = f.button :submit, "Sign up"
 = render :partial => "devise/shared/links"

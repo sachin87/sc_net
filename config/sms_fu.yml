@@ -1,0 +1,15 @@
+config:
+  from_address: noreply@domain.com
+carriers:
+  bsnl:
+    name: bsnl
+    value: "@sms.sancharnet.in"
+  airtel:
+    name: airtel
+    value: "@airtelmail.com"
+  bpl:
+    name: bpl
+    value: "@bplmobile.com"
+  idea:
+    name: idea
+    value: "@ideacellular.net"

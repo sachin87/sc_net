@@ -1,11 +1,25 @@
 SocialNetworking::Application.routes.draw do
 
+  resources :forums do
+    resources :topics do
+      resources :posts
+    end
+  end
 
-  devise_for :users
+  match '/auth/:provider/callback' => 'authentications#create'
 
-  root :to => 'pages#show'
+  devise_for :users, :controllers => {:registrations => 'registrations'}
 
+  root :to => 'pages#index'
+
+  resources :authentications , :only => [:index,:create,:destroy]
   resources :pages
+
+  resources :articles
+  resources :categories do
+    resources :articles, :name_prefix => 'category_'
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
