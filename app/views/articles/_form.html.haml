@@ -1,8 +1,8 @@
-= simple_form_for(@article) |f|
+= simple_form_for(@article) do |f|
   = f.input :title
   = f.input :synopsis
   = f.input :body
-  = f.input :category, :collection => Category.all
+  = f.input :category_id, :collection => Category.all
   = f.input :published
   = f.submit
-  = link_to 'cancel', articles_url
+= link_to 'cancel', articles_path

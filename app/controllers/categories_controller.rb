@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.create(params[:category])
     respond_to do |format|
-      format.html { redirect_to admin_categories_url }
+      format.html { redirect_to categories_url }
       format.xml { render :xml => @category.to_xml }
     end
   end
@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     @category.update_attributes(params[:category])
     respond_to do |format|
-      format.html { redirect_to admin_categories_url }
+      format.html { redirect_to categories_url }
       format.xml { render :xml => @category.to_xml }
     end
   end
