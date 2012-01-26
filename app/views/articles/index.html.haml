@@ -1,0 +1,17 @@
+- content_for :head do
+  = auto_discovery_link_tag
+%h2 News Articles
+- @articles.each do |article|
+  .article
+    %h3=article.title
+  - if article.category
+    %p.category
+      Category:
+      =link_to article.category.name, category_articles_path(article.category)
+  %p
+    = article.created_at.to_s(:short)
+    = "by"
+    = article.user.username
+    = article.synopsis
+    = link_to 'Read the full article', article_url(article)
+= paginate @articles

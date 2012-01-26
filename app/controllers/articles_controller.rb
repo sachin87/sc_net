@@ -2,9 +2,9 @@ class ArticlesController < ApplicationController
 
   def index
     if params[:category_id]
-      @articles = Article.where("category_id= ? AND published=?",params[:category_id].to_i,true).include(:user).order('published_at DESC').page(params[:page]).per(50)
+      @articles = Article.includes(:user).where("articles.category_id= ? AND articles.published=?",params[:category_id].to_i,true).order('articles.published_at DESC').page(params[:page]).per(50)
     else
-      @articles = Article.where("published =?",true).include(:user).order('published_at DESC').page(params[:page]).per(50)
+      @articles = Article.includes(:user).where("articles.published =?",true).order('articles.published_at DESC').page(params[:page]).per(50)
     end
     respond_to do |format|
       format.html

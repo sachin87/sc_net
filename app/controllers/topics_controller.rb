@@ -2,13 +2,17 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.all
+@forum = Forum.find(params[:forum_id])
+@topics_pages, @topics = paginate(:topics,
+:include => :user,
+:conditions => ['forum_id = ?', @forum],
+:order => 'topics.updated_at DESC')
+respond_to do |format|
+format.html # index.rhtml
+format.xml { render :xml => @topics.to_xml }
+end
+end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @topics }
-    end
-  end
 
   # GET /topics/1
   # GET /topics/1.json
@@ -23,14 +27,11 @@ class TopicsController < ApplicationController
 
   # GET /topics/new
   # GET /topics/new.json
-  def new
-    @topic = Topic.new
+def new
+@topic = Topic.new
+@post = Post.new
+end
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @topic }
-    end
-  end
 
   # GET /topics/1/edit
   def edit
@@ -40,34 +41,46 @@ class TopicsController < ApplicationController
   # POST /topics
   # POST /topics.json
   def create
-    @topic = Topic.new(params[:topic])
+@topic = Topic.new(:name => params[:topic][:name],
+:forum_id => params[:forum_id],
+:user_id => logged_in_user.id)
+@topic.save!
+@post = Post.new(:body => params[:post][:body],
+:topic_id => @topic.id,
+:user_id => logged_in_user.id)
+@post.save!
+respond_to do |format|
+format.html { redirect_to posts_path(:topic_id => @topic,
+:forum_id => @topic.forum.id) }
+format.xml { head :created, :location => topic_path(:id => @topic,
+:forum_id => @topic.forum.id) }
+end
+rescue ActiveRecord::RecordInvalid
+respond_to do |format|
+format.html { render :action => 'new' }
+format.xml { render :xml => @post.errors.to_xml }
+end
+end
 
-    respond_to do |format|
-      if @topic.save
-        format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
-        format.json { render json: @topic, status: :created, location: @topic }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+
 
   # PUT /topics/1
   # PUT /topics/1.json
   def update
-    @topic = Topic.find(params[:id])
+@topic = Topic.find(params[:id])
+respond_to do |format|
+if @topic.update_attributes(params[:topic])
+flash[:notice] = 'Topic was successfully updated.'
+format.html { redirect_to posts_path(:topic_id => @topic,
+:forum_id => @topic.forum) }
+format.xml { head :ok }
+else
+format.html { render :action => "edit" }
+format.xml { render :xml => @topic.errors.to_xml }
+end
+end
+end
 
-    respond_to do |format|
-      if @topic.update_attributes(params[:topic])
-        format.html { redirect_to @topic, notice: 'Topic was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /topics/1
   # DELETE /topics/1.json
