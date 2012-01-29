@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120129113953) do
+ActiveRecord::Schema.define(:version => 20120129133908) do
 
   create_table "articles", :force => true do |t|
     t.integer  "user_id"
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(:version => 20120129113953) do
 
   add_index "comments", ["entry_id"], :name => "index_comments_on_entry_id"
 
+  create_table "entries", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "comments_count", :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entries", ["user_id"], :name => "index_entries_on_user_id"
+
   create_table "forums", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -64,6 +75,18 @@ ActiveRecord::Schema.define(:version => 20120129113953) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.integer  "photo_file_size"
+    t.string   "photo_content_type"
+    t.datetime "photo_updated_at"
   end
 
   create_table "posts", :force => true do |t|
@@ -117,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20120129113953) do
     t.integer  "entries_count",                         :default => 0,    :null => false
     t.string   "blog_title"
     t.boolean  "enable_comments",                       :default => true
+    t.integer  "photos_count"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

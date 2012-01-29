@@ -6,10 +6,10 @@ class CreatePhotos < ActiveRecord::Migration
       t.column :body, :text
       t.timestamps
       # the following columns are required for attachment_fu
-      t.column photo_file_name, :string
-      t.column photo_file_size, :integer
-      t.column photo_content_type, :string
-      t.column photo_updated_at, :datetime
+      t.column :photo_file_name, :string
+      t.column :photo_file_size, :integer
+      t.column :photo_content_type, :string
+      t.column :photo_updated_at, :datetime
     end
     add_column :users, :photos_count, :integer
   end

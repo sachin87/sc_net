@@ -14,7 +14,7 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
-    redirect_to topics_path(:forum_id => params[:id])
+    redirect_to forum_topics_path(:forum_id => params[:id])
   end
 
 

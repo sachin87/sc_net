@@ -1,9 +1,10 @@
-%h2 Forum :
+%h2
+  Forum:
   = @forum.name
 %h3 Topics
 %p
-  - if current_uaer
-    = link_to 'Post New Topic', new_topic_path(:forum_id => @forum)
+  - if current_user
+    = link_to 'Post New Topic', new_forum_topic_path(:forum_id => @forum)
   - else
     = link_to 'Login to post a new topic', :controller => 'account',:action => 'login'
 %table#topics
@@ -15,16 +16,16 @@
     %th.author
       Author
 - @topics.each do |topic|
-  %tr{ :class=>"#{cycle('odd', 'even')}"
+  %tr{ :class=>"#{cycle('odd', 'even')}"}
     %td.name
-      = link_to topic.name, posts_path(:forum_id => @forum,:topic_id => topic
-- if current_user and current_uaer.has_role?('moderator')
-  %br
-  %small
-    = link_to 'delete', topic_path(:forum_id => @forum,:id => topic),:method => :delete,
-      :confirm => 'Are you sure? This will delete this entire topic.'
-    = link_to 'edit', edit_topic_path(:forum_id => @forum, :id => topic)
-    %td.reply
-      = topic.posts_count
-    %td.author= link_to topic.user.username,user_path(:id => topic.user)
+      = link_to topic.name, posts_path(:forum_id => @forum,:topic_id => topic)
+  - if current_user and current_user.has_role?('moderator')
+    %br
+    %small
+      = link_to 'delete', topic_path(:forum_id => @forum,:id => topic),:method => :delete,
+        :confirm => 'Are you sure? This will delete this entire topic.'
+      = link_to 'edit', edit_topic_path(:forum_id => @forum, :id => topic)
+      %td.reply
+        = topic.posts_count
+      %td.author= link_to topic.user.username,user_path(:id => topic.user)
 = paginate @topics

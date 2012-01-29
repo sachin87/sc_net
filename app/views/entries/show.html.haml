@@ -2,20 +2,23 @@
 = link_to 'Back', entries_path
 %h1= link_to blog_title(@entry.user), entries_path(:user_id => @entry.user)
 %h2= @entry.title
-%p= textilize(@entry.body)
+%p=textilize(@entry.body)
 %h3 Comments
 - @entry.comments.each do |comment|
   .comment
     %p.commentfrom 
       At
-      = comment.created_at.to_s(:short)
-      = comment.user.username %> said:
-      - if current_user and current_user == @entry.user
+      = comment.created_at
+      = comment.user.email
+      said:
+      - if current_user && current_user == @entry.user
         %p.commentdelete
-          = link_to 'Delete this comment',comment_path(:user_id => @entry.user,:entry_id => @entry.id,:id => comment.id),
+          = link_to 'Delete this comment',comment_path(:user_id => @entry.user,
+            :entry_id => @entry.id,:id => comment.id),
             :confirm => 'Are you sure?',
             :method => :delete
-    %p.commentbody=h comment.body
+    %p.commentbody
+      = raw comment.body
 %h3 Leave a comment
 = simple_form_for(@comment, :url => comments_path(:user_id => @entry.user,:entry_id => @entry)) do |f|
   = f.input :body

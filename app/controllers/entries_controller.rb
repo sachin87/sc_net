@@ -3,13 +3,13 @@ class EntriesController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @entries = @user.entries.order('created_at DESC').limit(@entry_pages.items_per_page).offset(@entry_pages.current.offset).page(params[:page]).per(50)
+    @entries = @user.entries.order('created_at DESC').page(params[:page]).per(50)
   end
   
   def show
-    @entry = Entry.find_by_id_and_user_id(params[:id],
-      params[:user_id],
+    @entry = Entry.find_by_id_and_user_id(params[:id],params[:user_id],
       :include => [:user, [:comments => :user]])
+    @comment = Comment.new
   end
   
   def new
