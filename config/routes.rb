@@ -20,6 +20,13 @@ SocialNetworking::Application.routes.draw do
     resources :articles, :name_prefix => 'category_'
   end
 
+  resources :forums do
+    resources :topics do
+      resources :posts
+    end
+  end
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

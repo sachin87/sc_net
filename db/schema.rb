@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120129092042) do
+ActiveRecord::Schema.define(:version => 20120129100822) do
 
   create_table "articles", :force => true do |t|
     t.integer  "user_id"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20120129092042) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "ebabled"
+    t.boolean  "enabled"
     t.text     "profile"
     t.integer  "posts_count",                           :default => 0,  :null => false
   end

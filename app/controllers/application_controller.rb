@@ -10,12 +10,16 @@ class ApplicationController < ActionController::Base
   def check_role(role)
     unless current_user && current_user.has_role?(role)
       flash[:error] = "You do not have the permission to do that."
-      redirect_to root_path
+      #redirect_to root_path
     end
   end
   
   def check_administrator_role
     check_role('Administrator')
+  end
+
+  def check_moderator_role
+    check_role('Moderator')
   end
 
 end
