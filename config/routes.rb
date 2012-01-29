@@ -1,5 +1,9 @@
 SocialNetworking::Application.routes.draw do
 
+  resources :comments
+  resources :blogs
+  resources :entries
+
   resources :forums do
     resources :topics do
       resources :posts
@@ -8,7 +12,12 @@ SocialNetworking::Application.routes.draw do
 
   match '/auth/:provider/callback' => 'authentications#create'
 
-  devise_for :users, :controllers => {:registrations => 'registrations'}
+  devise_for :users, :controllers => {:registrations => 'registrations'} do
+    resources :entries do
+      resources :comments
+    end
+    resources :photos, :name_prefix => 'user_',:controller => 'user_photos'
+  end
 
   root :to => 'pages#index'
 
@@ -19,14 +28,6 @@ SocialNetworking::Application.routes.draw do
   resources :categories do
     resources :articles, :name_prefix => 'category_'
   end
-
-  resources :forums do
-    resources :topics do
-      resources :posts
-    end
-  end
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

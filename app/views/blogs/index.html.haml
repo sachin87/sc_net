@@ -1,0 +1,10 @@
+%h2 Recently updated blogs
+- @entries.each do |entry|
+  %p
+    = link_to entry.user.username, entries_url(:user_id => entry.user)
+    %br
+    = entry.title
+    was posted
+    = time_ago_in_words(entry.created_at)
+    ago
+= paginate @blogs

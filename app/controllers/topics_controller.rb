@@ -1,4 +1,6 @@
 class TopicsController < ApplicationController
+
+  before_filter :check_moderator_role,:only => [:destroy, :edit, :update]
   # GET /topics
   # GET /topics.json
   def index
@@ -14,12 +16,7 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
-    @topic = Topic.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @topic }
-    end
+    redirect_to posts_path(:forum_id => params[:forum_id], :topic_id => params[:id])
   end
 
   # GET /topics/new
@@ -83,11 +80,13 @@ class TopicsController < ApplicationController
   # DELETE /topics/1.json
   def destroy
     @topic = Topic.find(params[:id])
+    @topic.posts.each { |post| post.destroy }
     @topic.destroy
-
     respond_to do |format|
-      format.html { redirect_to topics_url }
-      format.json { head :ok }
+      format.html { redirect_to topics_path(
+          :forum_id => params[:forum_id]) }
+      format.xml { head :ok }
     end
   end
+
 end

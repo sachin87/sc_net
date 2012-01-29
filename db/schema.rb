@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120129100822) do
+ActiveRecord::Schema.define(:version => 20120129113953) do
 
   create_table "articles", :force => true do |t|
     t.integer  "user_id"
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(:version => 20120129100822) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "entry_id"
+    t.integer  "user_id"
+    t.string   "guest_name"
+    t.string   "guest_email"
+    t.string   "guest_url"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["entry_id"], :name => "index_comments_on_entry_id"
 
   create_table "forums", :force => true do |t|
     t.string   "name"
@@ -86,8 +99,8 @@ ActiveRecord::Schema.define(:version => 20120129100822) do
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",   :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -100,7 +113,10 @@ ActiveRecord::Schema.define(:version => 20120129100822) do
     t.datetime "updated_at"
     t.boolean  "enabled"
     t.text     "profile"
-    t.integer  "posts_count",                           :default => 0,  :null => false
+    t.integer  "posts_count",                           :default => 0,    :null => false
+    t.integer  "entries_count",                         :default => 0,    :null => false
+    t.string   "blog_title"
+    t.boolean  "enable_comments",                       :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

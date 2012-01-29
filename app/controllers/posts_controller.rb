@@ -1,8 +1,12 @@
 class PostsController < ApplicationController
+
+  before_filter :check_moderator_role,:only => [:destroy, :edit, :update]
+
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @topic = Topic.find(params[:topic_id]).includes(:forum)
+    @posts = Topic.where(['topic_id = ?', @topic]).includes(:user).page(params[:page]).per(50)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,8 +28,8 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
+    @topic = Topic.find(params[:topic_id], :include => :forum)
     @post = Post.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @post }
@@ -34,7 +38,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:id], :include => { :topic => :forum })
   end
 
   # POST /posts
@@ -60,7 +64,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to posts_path(:forum_id => params[:forum_id],:topic_id => params[:topic_id]) }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -76,7 +80,7 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to posts_url }
+      format.html { redirect_to posts_path(:forum_id => params[:forum_id],:topic_id => params[:topic_id]) }
       format.json { head :ok }
     end
   end

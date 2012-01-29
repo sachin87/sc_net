@@ -1,0 +1,14 @@
+%h1
+  = link_to blog_title(@user), entries_path(:user_id => @user.id)
+- @entries.each do |entry|
+  .blogentry
+    %h2= link_to entry.title,entry_path(:user_id => entry.user, :id => entry)
+    - if current_user and current_user == @user
+      .blogoptions
+        = link_to 'Edit', edit_entry_path(:user_id => entry.user, :id => entry)
+        = link_to 'Destroy', entry_path(:user_id => entry.user, :id => entry),:confirm => 'Are you sure?', :method => :delete
+    .blogentrybody
+      = textilize(entry.body)
+    .blognumcomments
+    %p= link_to pluralize(entry.comments_count, 'comment'),entry_path(:user_id => entry.user, :id => entry)
+= paginate @entries

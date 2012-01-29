@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :authentications
   has_many :articles
+  has_many :entries
+  has_many :comments
+  has_many :photos
   has_and_belongs_to_many :roles
 
   devise :database_authenticatable, :registerable,

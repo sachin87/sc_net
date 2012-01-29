@@ -1,4 +1,5 @@
 class ForumsController < ApplicationController
+  before_filter :check_moderator_role, :except => [:index, :show]
   # GET /forums
   # GET /forums.json
   def index
