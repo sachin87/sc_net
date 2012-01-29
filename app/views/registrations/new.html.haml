@@ -3,7 +3,7 @@
   = f.error_notification
   .inputs
     = f.input :email, :required => true, :autofocus => true
-    - @user.password_required?
+    - if @user.password_required?
       = f.input :password, :required => true
       = f.input :password_confirmation, :required => true
   .actions

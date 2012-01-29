@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120104173231) do
+ActiveRecord::Schema.define(:version => 20120129092042) do
 
   create_table "articles", :force => true do |t|
     t.integer  "user_id"
@@ -62,6 +62,17 @@ ActiveRecord::Schema.define(:version => 20120104173231) do
   end
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "role_id", :null => false
+    t.integer "user_id", :null => false
+  end
 
   create_table "topics", :force => true do |t|
     t.integer  "forum_id"

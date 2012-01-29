@@ -1,0 +1,5 @@
+%h1="Roles for #{@user.username}"
+%h2 Roles assigned:
+%ul= render 'role', :collection => @user.roles
+%h2 Roles available:
+%ul= render 'role', :collection => (@all_roles - @user.roles)
