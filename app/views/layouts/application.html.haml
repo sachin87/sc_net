@@ -1,6 +1,6 @@
-!DOCTYPE html
-%html
-%head
+!!! XML
+!!! Strict
+%html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
   %title SocialNetworking
   = stylesheet_link_tag "application"
   = javascript_include_tag "application"
@@ -8,7 +8,7 @@
 %body
   #container
     #header
-      = image_tag 'logo.png', :alt => "RailsCoders"
+      = image_tag 'logo.png', :alt => ""
     #sidemenu
       = render 'layouts/menu'
     #content

@@ -1,7 +1,7 @@
 xml.instruct!
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   xml.title
-  "RailsCoders News"
+  "News"
   xml.link "rel" => "self", "href" => articles_url
   xml.link "rel" => "alternate", "href" => articles_url
   xml.id
@@ -9,7 +9,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   if @articles.any?
     xml.updated @articles.first.updated_at.strftime "%Y-%m-%dT%H:%M:%SZ"
   end
-  xml.author { xml.name "RailsCoders Site" }
+  xml.author { xml.name "Site" }
   @articles.each do |article|
     xml.article do
       xml.title

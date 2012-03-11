@@ -8,7 +8,7 @@ xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
     "News Feed "
     articles_url
     CGI.rfc1123_date @articles.first.published_at if @articles.any?
-    "News about the RailsCoders"
+    "News about the Us"
     @articles.each do |article|
       xml.item do
         xml.title
