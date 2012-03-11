@@ -16,6 +16,7 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'kaminari'
 gem 'omniauth'
+gem "paperclip"
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 #gem 'omniauth-linked_in'
