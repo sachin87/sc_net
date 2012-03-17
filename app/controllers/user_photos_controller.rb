@@ -33,9 +33,9 @@ class UserPhotosController < ApplicationController
   end
 
   def create
-    @photo = Photo.new(params[:photo])
+    @photo = current_user.photos.build(params[:photo])
     respond_to do |format|
-      if current_user.photos << @photo
+      if @photo.save
         flash[:notice] = 'Photo was successfully created.'
         format.html { redirect_to(user_photos_path(:user_id=>current_user.id)) }
         format.xml { head :created,
