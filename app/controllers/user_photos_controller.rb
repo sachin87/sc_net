@@ -4,8 +4,8 @@ class UserPhotosController < ApplicationController
   
   def index
     @user = User.find(params[:user_id])
-    @photos = @user.photos.order('created_at DESC').limit(@photo_pages.items_per_page).
-      offset(@photo_pages.current.offset).page(params[:page]).per(50)
+    @photos = @user.photos.order('created_at DESC').limit(5).
+      offset(5).page(params[:page]).per(50)
     respond_to do |format|
       format.html # index.rhtml
       format.xml { render :xml => @photos.to_xml }
@@ -23,11 +23,11 @@ class UserPhotosController < ApplicationController
   end
 
   def new
-    @photo = Photo.new
+    @photo = current_user.photos.build
   end
 
   def edit
-    @photo = @logged_in_user.photos.find(params[:id])
+    @photo = current_user.photos.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to :action => 'index'
   end
@@ -35,9 +35,9 @@ class UserPhotosController < ApplicationController
   def create
     @photo = Photo.new(params[:photo])
     respond_to do |format|
-      if @logged_in_user.photos << @photo
+      if current_user.photos << @photo
         flash[:notice] = 'Photo was successfully created.'
-        format.html { redirect_to(user_photos_path(:user_id=>@logged_in_user.id)) }
+        format.html { redirect_to(user_photos_path(:user_id=>current_user.id)) }
         format.xml { head :created,
           :location => user_photo_path(:user_id => @photo.user_id, :id => @photo)}
       else
@@ -50,11 +50,11 @@ class UserPhotosController < ApplicationController
   end
 
   def update
-    @photo = @logged_in_user.photos.find(params[:id])
+    @photo = current_user.photos.find(params[:id])
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
         flash[:notice] = 'Photo was successfully updated.'
-        format.html { redirect_to user_photo_path(:user_id => @logged_in_user,
+        format.html { redirect_to user_photo_path(:user_id => current_user,
             :id => @photo) }
         format.xml { head :ok }
       else
@@ -67,7 +67,7 @@ class UserPhotosController < ApplicationController
   end
 
   def destroy
-    @photo = @logged_in_user.photos.find(params[:id])
+    @photo = current_user.photos.find(params[:id])
     @photo.destroy
     respond_to do |format|
       format.html { redirect_to user_photos_path }
@@ -76,4 +76,5 @@ class UserPhotosController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to :action => 'index'
   end
+
 end

@@ -52,3 +52,17 @@ table#posts td.body
 { width: 80% }
 .forumname { font-size: 1.1em; }
 .forumdescription { font-size: 0.7em; padding-top: 0.4em; }
+
+/* Photo gallery styling */
+#photos ul { list-style: none; }
+#photos li { display: inline; }
+#photos li a img {
+margin: 10px;
+padding: 5px;
+background: #000;
+}
+#photo {
+margin-bottom: 20px;
+padding: 5px;
+background: #000;
+}

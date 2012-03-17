@@ -3,13 +3,12 @@ body {
 	margin: 0px;
 	padding: 0px;
 	background-color: #F8F8F8;
-	background-image: url(tile.jpg);
 	background-repeat: repeat;
 	background-position: left top;
-
 }
 
 #wrapper {
+  background-image: url(tile.jpg);
 	width:900px;
 	height:500px;
 	position:absolute;
@@ -29,9 +28,7 @@ body {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	margin-left: 10px;
-	float: left;	
-	
-	
+	float: left;
 }
 #centerright {
 	background-color: #333333;

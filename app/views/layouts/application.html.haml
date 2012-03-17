@@ -7,16 +7,19 @@
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
-%body
-  #wrapper
-    #center
-    #centerright
-      %h1
-        %br
-        Already A Member Login Here
-      = yield :sign_in
+- unless user_signed_in?
+  %body
+    #wrapper
+      #center
+      #centerright
+        %h1
+          %br
+          Already A Member Login Here
+        = yield :sign_in
+- else
+  %body
     #sidemenu
-      =# render 'layouts/menu'
+      = render 'layouts/menu'
     #content
       - if flash[:notice]
         #notice

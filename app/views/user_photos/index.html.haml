@@ -1,0 +1,10 @@
+%h2
+  = "#{@user.username}'s Photos"
+- if (current_user && current_user == @user)
+  %p
+    = link_to('Upload a new photo', new_user_photo_path)
+= render 'photos/page_links'
+%ul#photos
+  - @photos.each do |photo|
+    = render 'photos/photo', :photo => photo
+= render 'photos/page_links'

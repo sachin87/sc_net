@@ -3,11 +3,13 @@
   %li= link_to 'News', articles_path
   %li= link_to 'Forums', forums_path
   %li= link_to "Blogs", blogs_path
+  %li= link_to 'Photos', photos_path
   %li= link_to 'Edit Pages', pages_path
-- if current_user
-  %li= current_user.email
+- if user_signed_in?
+  %li= current_user.username
   %li= link_to 'My Profile', edit_user_registration_path
   %li= link_to 'New Blog Post', new_entry_path(:user_id => current_user)
+  %li= link_to 'Upload Photo',new_user_photo_path(:user_id => current_user)
   %li= link_to 'Sign out', destroy_user_session_path, :method => :delete
   %li
     %hr{ :size=>"1", :width=>"90%", :align=>"left"}

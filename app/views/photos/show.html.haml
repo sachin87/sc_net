@@ -1,8 +1,0 @@
-%h3
-  = link_to "#{@photo.user.username}'s Photos",user_photos_path(:user_id => @photo.user)
-%h2= @photo.title
-%p= @photo.body
-- if user_signed_in? && @photo.user == current_user
-  = link_to 'Edit', user_edit_photo_path(:user_id=>@photo.user, :id=>@photo)
-  = link_to 'Delete', user_photo_path(:user_id => @photo.user, :id => @photo),:confirm => 'Are you sure?',:method => :delete
-= image_tag @photo.public_filename, :id => 'photo'

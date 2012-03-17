@@ -10,13 +10,15 @@ SocialNetworking::Application.routes.draw do
     end
   end
 
+  resources :photos, :only => [:index]
+
   match '/auth/:provider/callback' => 'authentications#create'
 
   devise_for :users, :controllers => {:registrations => 'registrations'} do
     resources :entries do
       resources :comments
     end
-    resources :photos, :name_prefix => 'user_',:controller => 'user_photos'
+    resources :user_photos
   end
 
   root :to => 'pages#index'

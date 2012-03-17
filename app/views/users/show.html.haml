@@ -1,0 +1,5 @@
+%h3 Photos
+%ul#photos
+  = render :partial => 'photos/photo', :collection => @photos
+%p
+  = link_to "See all of #{@user.username}'s photos",user_photos_path(:user_id => @user)
