@@ -1,0 +1,6 @@
+- if @photo_pages.page_count > 1
+  - if @photo_pages.current.previous
+    = link_to '&laquo; Previous', :page => @photo_pages.current.previous
+  = paginate @photos
+  - if @photo_pages.current.next
+    = link_to 'Next &raquo;', { :page => @photo_pages.current.next }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120129133908) do
+ActiveRecord::Schema.define(:version => 20120317093312) do
 
   create_table "articles", :force => true do |t|
     t.integer  "user_id"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20120129133908) do
     t.string   "blog_title"
     t.boolean  "enable_comments",                       :default => true
     t.integer  "photos_count"
+    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
