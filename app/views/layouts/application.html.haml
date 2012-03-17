@@ -1,16 +1,22 @@
 !!! XML
 !!! Strict
 %html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
-  %title SocialNetworking
-  = stylesheet_link_tag "application"
-  = javascript_include_tag "application"
-  = csrf_meta_tags
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+    %title SocialNetworking
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
 %body
-  #container
-    #header
-      =# image_tag 'logo.png', :alt => ""
+  #wrapper
+    #center
+    #centerright
+      %h1
+        %br
+        Already A Member Login Here
+      = yield :sign_in
     #sidemenu
-      = render 'layouts/menu'
+      =# render 'layouts/menu'
     #content
       - if flash[:notice]
         #notice
