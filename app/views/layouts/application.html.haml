@@ -21,10 +21,8 @@
     #sidemenu
       = render 'layouts/menu'
     #content
-      - if flash[:notice]
-        #notice
-          = flash[:notice]
-      - if flash[:error]
-        #error
-          = flash[:error]
+      #notice
+        = flash[:notice]
+      #error
+        = flash[:error]
       = yield

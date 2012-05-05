@@ -1,11 +1,12 @@
+- forum = @topic.forum
 %h2= @topic.name
 %h3
   = link_to 'Forums', forums_path
-  = link_to @topic.forum.name, forum_path(@topic.forum)
+  = link_to forum.name, forum_path(forum)
   = @topic.name
 %p
   - if current_user
-    = link_to 'Post Reply', new_post_path(:forum_id => @topic.forum,:topic_id => @topic)
+    = link_to 'Post Reply', new_post_path(:forum_id => forum,:topic_id => @topic)
   - else
     = link_to 'Login to post a reply', :controller => 'account',:action => 'login'
 %table#posts
@@ -27,9 +28,9 @@
 - if current_user and current_user.has_role?('Moderator')
   %br
   %small
-    = link_to 'Edit', edit_post_path(:id => post,:topic_id => @topic, :forum_id => @topic.forum)
+    = link_to 'Edit', edit_post_path(post,:topic_id => @topic, :forum_id => forum)
   %br
-  = link_to 'Delete', post_path(:id => post, :topic_id => @topic,:forum_id => @topic.forum), :method => :delete,
+  = link_to 'Delete', post_path(post, :topic_id => @topic,:forum_id => forum), :method => :delete,
     :confirm => 'Are you sure you wish to delete this post?'
   %td.post
     = textilize(post.body)

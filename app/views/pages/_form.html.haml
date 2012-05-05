@@ -1,4 +1,5 @@
-= f.input :title
-= f.input :body
-= f.button :submit
-= link_to 'cancel', pages_path
+= simple_form_for @page do |f|
+  = f.input :title
+  = f.input :body
+  = f.button :submit
+  = link_to 'cancel', pages_path

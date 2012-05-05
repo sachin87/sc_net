@@ -7,11 +7,11 @@
   - if article.category
     %p.category
       Category:
-      =link_to article.category.name, category_articles_path(article.category)
+      = link_to article.category.name, category_articles_path(article.category)
   %p
     = article.created_at.to_s(:short)
-    = "by"
+    by
     = article.user.username
     = article.synopsis
-    = link_to 'Read the full article', article_url(article)
+    = link_to 'Read the full article', article_path(article)
 = paginate @articles

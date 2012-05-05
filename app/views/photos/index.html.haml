@@ -1,6 +1,6 @@
 %h2 All Photos
-= render :partial => 'page_links'
+= render 'page_links'
 %ul#photos
   - @photos.each do |photo|
     = render 'photo', :photo => photo
-= render :partial => 'page_links'
+= render 'page_links'

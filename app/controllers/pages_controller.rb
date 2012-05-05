@@ -17,24 +17,24 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(params[:page])
-   if @page.save
-    flash[:notice] = 'Page saved'
-    redirect_to pages_path
-  else
+    if @page.save
+      flash[:notice] = 'Page saved.'
+      redirect_to pages_path
+    else
+      flash[:error] = 'Error while creating the page.'
       render 'new'
-   end
+    end
   end
 
   def edit
   end
 
   def update
-    debugger
     if @page.update_attributes(params[:page])
-     flash[:notice] = "Page updated"
-     redirect_to pages_path
+      flash[:notice] = "Page updated"
+      redirect_to pages_path
     else
-     render 'edit'
+      render 'edit'
     end
   end
 
@@ -45,7 +45,7 @@ class PagesController < ApplicationController
     else
       flash[:error] = "There was a problem deleting the page"
     end
-    redirect_to :action => 'index'
+    redirect_to pages_apth
   end
 
   private
