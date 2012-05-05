@@ -34,6 +34,7 @@ gem 'cancan'
 gem 'heroku'
 gem 'foreman'
 gem 'activeadmin'
+gem "formtastic", "~> 2.1.1"
 
 # Gems used only for assets and not required
 # in production environments by default.

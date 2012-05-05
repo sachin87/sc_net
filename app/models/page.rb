@@ -1,6 +1,6 @@
 class Page < ActiveRecord::Base
   validates :title, :body , :presence => true
-  validates :title, :length => [3..255]
+  validates :title, :length => (3..255)
   validates :body, :length => { :maximum => 10000 }
 
   def before_create
