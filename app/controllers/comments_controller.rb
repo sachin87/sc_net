@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(:user => current_user,:body => params[:comment][:body])
     if @entry.comments << @comment
       flash[:notice] = 'Comment was successfully created.'
+      Notifier.new_comment_notification(@comment).deliver
       redirect_to entries_path(:user_id => @entry.user,
         :entry_id => @entry)
     else
@@ -20,7 +21,7 @@ class CommentsController < ApplicationController
     @comment = @entry.comments.find(params[:id])
     @comment.destroy
     redirect_to entry_path(:user_id => @entry.user.id,
-      :id => @entry.id)
+                           :id => @entry.id)
   end
   
 end

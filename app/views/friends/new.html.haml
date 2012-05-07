@@ -1,0 +1,36 @@
+%h2 Add a new friend
+<%= error_messages_for :friendship %>
+<% form_for(:friendship,
+:url => friends_path(:user_id => @logged_in_user,
+:friend_id => @friend),
+:html => { :multipart => true }) do |f| %>
+<p>
+Define your relationship with <strong><%= @friend.username %></strong>
+</p>
+<p>
+<strong>Friendship</strong><br />
+<%= f.radio_button :xfn_friendship,
+<%= f.radio_button :xfn_friendship,
+<%= f.radio_button :xfn_friendship,
+<%= f.radio_button :xfn_friendship,
+</p>
+:xfn_contact %> Contact
+:xfn_acquaintance %> Acquaintance
+:xfn_friend %> Friend
+false %> None
+<p>
+<strong>Physical</strong><br />
+<%= f.check_box :xfn_met %> Met
+</p>
+<p>
+<strong>Professional</strong><br />
+<%= f.check_box :xfn_coworker %> Co-worker
+<%= f.check_box :xfn_colleague %> Colleague
+</p>
+<p>
+<strong>Geographical</strong><br />
+<%= f.radio_button :xfn_geographical, :xfn_coresident %> Co-resident
+<%= f.radio_button :xfn_geographical, :xfn_neighbor %> Neighbor
+<%= f.radio_button :xfn_geographical, false %> None
+</p>
+<p>

@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :photos
   has_and_belongs_to_many :roles
 
+  has_many :friendships
+  has_many :friends, :through => :friendships, :class_name => 'User'
+
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 
@@ -17,6 +20,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
 
+  def email_with_username
+    "#{username} <#{email}>"
+  end
+  
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if email.blank?
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])

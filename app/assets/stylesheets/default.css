@@ -1,74 +1,74 @@
 @charset "utf-8";
 body {
-	margin: 0px;
-	padding: 0px;
-	background-color: #F8F8F8;
-	background-repeat: repeat;
-	background-position: left top;
+  margin: 0px;
+  padding: 0px;
+  background-color: #F8F8F8;
+  background-repeat: repeat;
+  background-position: left top;
 }
 
 #wrapper {
   background-image: url(tile.jpg);
-	width:900px;
-	height:500px;
-	position:absolute;
-	left:50%;
-	top:50%;
-	margin:-250px 0 0 -450px;
-	background-color: #FFFFFF;
-	border: 1px solid #999999;
+  width:900px;
+  height:500px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  margin:-250px 0 0 -450px;
+  background-color: #FFFFFF;
+  border: 1px solid #999999;
 }
 #center {
-	background-color: #F8F8F8;
-	width:618px;
-	height:480px;
-	background-image: url(loginPage.jpg);
-	background-repeat: no-repeat;
-	background-position: left top;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left: 10px;
-	float: left;
+  background-color: #F8F8F8;
+  width:618px;
+  height:480px;
+  background-image: url(loginPage.jpg);
+  background-repeat: no-repeat;
+  background-position: left top;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  float: left;
 }
 #centerright {
-	background-color: #333333;
-	width:252px;
-	height:480px;
-	margin-top: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	float: right;
-	padding-left: 10px;
+  background-color: #333333;
+  width:252px;
+  height:480px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  float: right;
+  padding-left: 10px;
 }
 
 
 h1 {
-	color: #FFFFFF;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	text-decoration: none;
-	line-height: normal;
-	font-weight: normal;
+  color: #FFFFFF;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  line-height: normal;
+  font-weight: normal;
 }
 h2 {
-	color: #700008;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 28px;
-	text-decoration: none;
-	line-height: normal;
-	font-weight: normal;
+  color: #700008;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 28px;
+  text-decoration: none;
+  line-height: normal;
+  font-weight: normal;
 }
 a {
-	color: #63151a;
-	text-decoration: none;
+  color: #63151a;
+  text-decoration: none;
 }
 p {
-	color: #63151a;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	text-decoration: none;
+  color: #63151a;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  text-decoration: none;
 }
 
 a:hover {
-	color: #FFFFFF;
+  color: #FFFFFF;
 }

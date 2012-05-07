@@ -1,5 +1,5 @@
 class ForumsController < ApplicationController
-  before_filter :check_moderator_role, :except => [:index, :show]
+
   # GET /forums
   # GET /forums.json
   def index
@@ -26,7 +26,7 @@ class ForumsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @forum }
-    end
+end
   end
 
   # GET /forums/1/edit

@@ -1,0 +1,7 @@
+%h2=
+    #{@user.username}'s Friends
+%table
+  - if user_signed_in? and current_user == @user
+    = render :partial => 'friendship_with_edit', :collection=>@user.friendships
+  - else
+    = render :partial => 'friendship', :collection => @user.friendships

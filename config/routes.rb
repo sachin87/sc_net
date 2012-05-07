@@ -1,4 +1,6 @@
 SocialNetworking::Application.routes.draw do
+  resources :newsletters
+
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   ActiveAdmin.routes(self)
@@ -12,6 +14,14 @@ SocialNetworking::Application.routes.draw do
       resources :posts
     end
   end
+
+  resources :newsletters do
+    member do
+      put 'sendmails'
+    end
+  end
+
+  resources :friends
 
   resources :photos, :only => [:index]
 

@@ -7,17 +7,14 @@
       Forum name
     %th{:class=>"topic"}
       Topics
-- @forums.each do |forum|
-  %tr{ :class=>"#{cycle('odd', 'even')}"}
-    %td{:class=>"name"}
-  .forumname
-    = link_to forum.name, forum_topics_path(:forum_id => forum)
-  .forumdescription
-    = forum.description
-  - if current_user and current_user.has_role?('Moderator')
-    %br
-    %small
-      = link_to 'edit', edit_forum_path(forum)
-      = link_to 'delete', forum_path(forum), :method => :delete,:confirm => 'Are you sure? This will delete this entire forum.'
-  %td{:class=>"topic"}
-    = forum.topics_count
+  - @forums.each do |forum|
+    %tr{:class=>"#{cycle('odd', 'even')}"}
+      %td{:class=>"name"}
+        .forumname=link_to forum.name, forum_topics_path(:forum_id => forum)
+        .forumdescription=forum.description
+        - if current_user and current_user.has_role?('Moderator')
+          %br
+          %small
+            = link_to 'edit', edit_forum_path(forum)
+            = link_to 'delete', forum_path(forum), :method => :delete,:confirm => 'Are you sure? This will delete this entire forum.'
+      %td{:class=>"topic"}=forum.topics_count

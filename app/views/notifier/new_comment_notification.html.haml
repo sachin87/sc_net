@@ -1,0 +1,14 @@
+= image_tag "http://sc.net/images/logo.png"
+%p
+  Hi
+  = @blog_owner.username
+%p A new comment has been left on your blog at RailsCoders.
+%p The comment was left by
+    = link_to @comment.user.username,@blog_owner_url
+    at
+    = @comment.created_at.to_s(:short)
+%p To read the comment, go to
+  = link_to @blog_entry_url, @blog_entry_url
+%p Cheers,
+%br
+  = link_to "THe Social Networking", "#"
