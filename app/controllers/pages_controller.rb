@@ -38,7 +38,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def destroy 
     if @page.destroy
       flash[:notice] = "Page was deleted successfully."

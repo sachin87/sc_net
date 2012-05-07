@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120505212118) do
+ActiveRecord::Schema.define(:version => 20120507091753) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
     t.boolean  "published",    :default => false
     t.datetime "published_at"
     t.integer  "category_id",  :default => 1
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "authentications", :force => true do |t|
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
     t.string   "guest_email"
     t.string   "guest_url"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "comments", ["entry_id"], :name => "index_comments_on_entry_id"
@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
     t.string   "title"
     t.text     "body"
     t.integer  "comments_count", :default => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "entries", ["user_id"], :name => "index_entries_on_user_id"
@@ -98,24 +98,24 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
     t.string   "name"
     t.text     "description"
     t.integer  "topics_count", :default => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.string   "permalink"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "photos", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "photo_file_name"
     t.integer  "photo_file_size"
     t.string   "photo_content_type"
@@ -126,16 +126,16 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
     t.integer  "topic_id"
     t.integer  "user_id"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -148,15 +148,15 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
     t.integer  "user_id"
     t.string   "name"
     t.integer  "posts_count", :default => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "",   :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "",   :null => false
+    t.string   "email",                                 :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -165,16 +165,17 @@ ActiveRecord::Schema.define(:version => 20120505212118) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
     t.boolean  "enabled"
     t.text     "profile"
-    t.integer  "posts_count",                           :default => 0,    :null => false
-    t.integer  "entries_count",                         :default => 0,    :null => false
+    t.integer  "posts_count",                           :default => 0,     :null => false
+    t.integer  "entries_count",                         :default => 0,     :null => false
     t.string   "blog_title"
     t.boolean  "enable_comments",                       :default => true
     t.integer  "photos_count"
     t.string   "username"
+    t.boolean  "admin",                                 :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

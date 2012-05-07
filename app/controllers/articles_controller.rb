@@ -22,47 +22,44 @@ class ArticlesController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @article.to_xml }
+      format.xml { render :xml => @article }
     end
   end
 
   def new
-    @article = Article.new
+    @article = current_user.articles.new
   end
   
   def create
-    @article = Article.create(params[:article])
-    current_user.articles << @article
-    respond_to do |format|
-      format.html { redirect_to admin_articles_url }
-      format.xml { render :xml => @article.to_xml }
+    @article = current_user.articles.new(params[:article])
+    if @rticle.save
+      respond_to do |format|
+        format.html { redirect_to admin_articles_url }
+        format.xml { render :xml => @article }
+      end
     end
   end
   
   def edit
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
     @article.update_attributes(params[:article])
     respond_to do |format|
       format.html { redirect_to admin_articles_url }
-      format.xml { render :xml => @article.to_xml }
+      format.xml { render :xml => @article }
     end
   end
   
   def destroy
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
     @article.destroy
     respond_to do |format|
       format.html { redirect_to admin_articles_url }
       format.xml { render :nothing => true }
     end
-  end
-
-  def admin
-    @articles = Article.order('published_at DESC')
   end
 
 end
