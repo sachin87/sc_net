@@ -34,7 +34,7 @@ SocialNetworking::Application.routes.draw do
     resources :user_photos
   end
 
-  root :to => 'pages#index'
+  root :to => 'blogs#index'
 
   resources :authentications , :only => [:index,:create,:destroy]
   resources :pages

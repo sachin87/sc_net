@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507091753) do
+ActiveRecord::Schema.define(:version => 20120507124931) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
     t.boolean  "published",    :default => false
     t.datetime "published_at"
     t.integer  "category_id",  :default => 1
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "authentications", :force => true do |t|
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "comments", :force => true do |t|
@@ -77,19 +77,28 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
     t.string   "guest_email"
     t.string   "guest_url"
     t.text     "body"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "comments", ["entry_id"], :name => "index_comments_on_entry_id"
+
+  create_table "emails", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.integer  "last_send_attempt", :default => 0
+    t.text     "mail"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
 
   create_table "entries", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "body"
     t.integer  "comments_count", :default => 0, :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "entries", ["user_id"], :name => "index_entries_on_user_id"
@@ -98,24 +107,58 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
     t.string   "name"
     t.text     "description"
     t.integer  "topics_count", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id",                         :null => false
+    t.integer  "friend_id",                       :null => false
+    t.boolean  "friend",       :default => false, :null => false
+    t.boolean  "acquaintance", :default => false, :null => false
+    t.boolean  "contact",      :default => false, :null => false
+    t.boolean  "met",          :default => false, :null => false
+    t.boolean  "coworker",     :default => false, :null => false
+    t.boolean  "colleague",    :default => false, :null => false
+    t.boolean  "coresident",   :default => false, :null => false
+    t.boolean  "neighbor",     :default => false, :null => false
+    t.boolean  "child",        :default => false, :null => false
+    t.boolean  "parent",       :default => false, :null => false
+    t.boolean  "sibling",      :default => false, :null => false
+    t.boolean  "spouse",       :default => false, :null => false
+    t.boolean  "kin",          :default => false, :null => false
+    t.boolean  "muse",         :default => false, :null => false
+    t.boolean  "crush",        :default => false, :null => false
+    t.boolean  "date",         :default => false, :null => false
+    t.boolean  "sweetheart",   :default => false, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "friendships", ["user_id", "friend_id"], :name => "index_friendships_on_user_id_and_friend_id"
+
+  create_table "newsletters", :force => true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.boolean  "sent",       :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.string   "permalink"
     t.text     "body"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "photos", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "photo_file_name"
     t.integer  "photo_file_size"
     t.string   "photo_content_type"
@@ -126,16 +169,16 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
     t.integer  "topic_id"
     t.integer  "user_id"
     t.text     "body"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -148,8 +191,8 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
     t.integer  "user_id"
     t.string   "name"
     t.integer  "posts_count", :default => 0, :null => false
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
@@ -165,8 +208,8 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                               :null => false
-    t.datetime "updated_at",                                               :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "enabled"
     t.text     "profile"
     t.integer  "posts_count",                           :default => 0,     :null => false
@@ -176,6 +219,8 @@ ActiveRecord::Schema.define(:version => 20120507091753) do
     t.integer  "photos_count"
     t.string   "username"
     t.boolean  "admin",                                 :default => false
+    t.string   "last_activity"
+    t.datetime "last_activity_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

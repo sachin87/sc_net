@@ -37,4 +37,8 @@ class User < ActiveRecord::Base
     self.roles.find_by_name(rolename) ? true : false
   end
 
+  def password_required?
+    new_record? || !password.blank? || !password_confirmation.blank? ? super : false
+  end
+
 end

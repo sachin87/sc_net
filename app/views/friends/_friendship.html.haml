@@ -1,6 +1,6 @@
 %tr{ :class => "#{cycle('odd', 'even')}"}
   %td#friendname
-    = link_to friendship.friend.username,user_path(friendship.friend),:class => 'xfnRelationship',:rel => xfn_rel_tag(@user, friendship),:id => "friend-#{friendship.friend.id}"
+    = link_to friendship.friend.username,user_path(friendship.friend),:class => 'Relationship',:rel => rel_tag(@user, friendship),:id => "friend-#{friendship.friend.id}"
   %td#activity
     - if friendship.friend.last_activity_at
       = friendship.friend.last_activity

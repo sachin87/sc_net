@@ -8,36 +8,36 @@ module ApplicationHelper
     end
   end
 
-  def xfn_rel_tag(user, friendship)
+  def rel_tag(user, friendship)
     rel_tag = []
     if user.id == friendship.friend.id
       # identity
       rel_tag << 'me'
     else
       # friendship
-      rel_tag << 'friend' if friendship.xfn_friend
-      rel_tag << 'acquaintance' if friendship.xfn_acquaintance
-      rel_tag << 'contact' if friendship.xfn_contact
+      rel_tag << 'friend' if friendship.friend
+      rel_tag << 'acquaintance' if friendship.acquaintance
+      rel_tag << 'contact' if friendship.contact
       # physical
-      rel_tag << 'met' if friendship.xfn_met
+      rel_tag << 'met' if friendship.met
       # professional
-      rel_tag << 'co-worker' if friendship.xfn_coworker
-      rel_tag << 'colleague' if friendship.xfn_colleague
+      rel_tag << 'co-worker' if friendship.coworker
+      rel_tag << 'colleague' if friendship.colleague
       # geographical
-      rel_tag << 'co-resident' if friendship.xfn_coresident
-      rel_tag << 'neighbor' if friendship.xfn_neighbor
+      rel_tag << 'co-resident' if friendship.coresident
+      rel_tag << 'neighbor' if friendship.neighbor
       # family
-      rel_tag << 'kin' if friendship.xfn_kin
-      rel_tag << 'child' if friendship.xfn_child
-      rel_tag << 'parent' if friendship.xfn_parent
-      rel_tag << 'sibling' if friendship.xfn_sibling
-      rel_tag << 'spouse' if friendship.xfn_spouse
+      rel_tag << 'kin' if friendship.kin
+      rel_tag << 'child' if friendship.child
+      rel_tag << 'parent' if friendship.parent
+      rel_tag << 'sibling' if friendship.sibling
+      rel_tag << 'spouse' if friendship.spouse
         
       # romantic
-      rel_tag << 'muse' if friendship.xfn_muse
-      rel_tag << 'crush' if friendship.xfn_crush
-      rel_tag << 'date' if friendship.xfn_date
-      rel_tag << 'sweetheart' if friendship.xfn_sweetheart
+      rel_tag << 'muse' if friendship.muse
+      rel_tag << 'crush' if friendship.crush
+      rel_tag << 'date' if friendship.date
+      rel_tag << 'sweetheart' if friendship.sweetheart
     end
     rel_tag.join(' ')
   end
