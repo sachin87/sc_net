@@ -28,8 +28,8 @@ SocialNetworking::Application.routes.draw do
 
   resources :authentications , :only => [:index,:create,:destroy]
   resources :pages
-
-  resources :articles
+  
+  resources :articles, :only => [:index, :show]
   resources :categories do
     resources :articles, :name_prefix => 'category_'
   end

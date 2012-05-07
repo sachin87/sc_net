@@ -26,40 +26,4 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def new
-    @article = current_user.articles.new
-  end
-  
-  def create
-    @article = current_user.articles.new(params[:article])
-    if @rticle.save
-      respond_to do |format|
-        format.html { redirect_to admin_articles_url }
-        format.xml { render :xml => @article }
-      end
-    end
-  end
-  
-  def edit
-    @article = current_user.articles.find(params[:id])
-  end
-
-  def update
-    @article = current_user.articles.find(params[:id])
-    @article.update_attributes(params[:article])
-    respond_to do |format|
-      format.html { redirect_to admin_articles_url }
-      format.xml { render :xml => @article }
-    end
-  end
-  
-  def destroy
-    @article = current_user.articles.find(params[:id])
-    @article.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_articles_url }
-      format.xml { render :nothing => true }
-    end
-  end
-
 end

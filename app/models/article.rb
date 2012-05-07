@@ -7,12 +7,14 @@ class Article < ActiveRecord::Base
   validates :synopsis, :presence => true
   validates :body, :presence => true
   validates :title, :presence => true
-  validates_length_of :title, :maximum => 255
-  validates_length_of :synopsis, :maximum => 1000
-  validates_length_of :body, :maximum => 20000
+  validates :title, :length => { :maximum => 255 }
+  validates :synopsis, :length => { :maximum => 1000 }
+  validates :body, :length => { :maximum => 20000 }
 
   before_save :update_published_at
-  
+
+  private
+
   def update_published_at
     self.published_at = Time.now if published?
   end

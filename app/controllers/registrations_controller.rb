@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  
   def create
     super
     session[:omniauth] = nil unless @user.new_record?
@@ -13,4 +14,5 @@ class RegistrationsController < Devise::RegistrationsController
       @user.valid?
     end
   end
+  
 end

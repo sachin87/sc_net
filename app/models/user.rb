@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
 
   validates :profile, :length => { :maximum => 1000 }
+  validates :username, :uniqueness => true
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
