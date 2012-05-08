@@ -4,12 +4,25 @@ class EntriesController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @entries = @user.entries.order('created_at DESC').page(params[:page]).per(50)
+    @usertemplate = @user.usertemplates.find_by_name('blog_index')
+    if @usertemplate and @usertemplate.body.any?
+      @page = Liquid::Template.parse(@usertemplate.body)
+      render :text => @page.render({'user' => @user, 'entries' => @entries},
+        [TextFilters])
+    end
   end
   
   def show
     @entry = Entry.find_by_id_and_user_id(params[:id],params[:user_id],
       :include => [:user, [:comments => :user]])
     @comment = Comment.new
+    @usertemplate = @user.usertemplates.find_by_name('blog_entry')
+    if @usertemplate and @usertemplate.body.any?
+      @page = Liquid::Template.parse(@usertemplate.body)
+      render :text => @page.render({'user' => @user,
+          'entry' => @entry, 'comments' => @entry.comments},
+        [TextFilters])
+    end
   end
   
   def new

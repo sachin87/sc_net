@@ -1,0 +1,6 @@
+development:
+<API_key_for_localhost>
+test:
+<API_key_for_localhost>
+production:
+railscoders.net: <API_key_for_sc.net>

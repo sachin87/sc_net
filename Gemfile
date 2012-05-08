@@ -35,6 +35,10 @@ gem 'heroku'
 gem 'foreman'
 gem 'activeadmin'
 gem "formtastic", "~> 2.1.1"
+gem 'acts-as-taggable-on', '~> 2.2.2'
+gem 'ym4r'
+gem 'flickr_fu'
+gem 'liquid'
 
 # Gems used only for assets and not required
 # in production environments by default.

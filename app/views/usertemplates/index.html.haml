@@ -1,0 +1,11 @@
+%h1 Your Blog Templates
+%table
+  %tr
+    %th Template Name
+    %th Description
+  %tr
+    %td= link_to 'blog_index', edit_usertemplate_path(@usertemplates.find {|ut| ut.name == 'blog_index'} )
+    %td The main template for your blog
+  %tr
+    %td= link_to 'blog_entry', edit_usertemplate_path(@usertemplates.find {|ut| ut.name == 'blog_entry'} )
+    %td The template for viewing one entry

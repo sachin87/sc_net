@@ -1,0 +1,5 @@
+%h2
+  = "#{@user.username}'s Photos Tagged: #{params[:id]}"
+%p= link_to "Show all photos tagged with #{h(params[:id])}", tag_path(h(params[:id]))
+%ul#photos
+  = render :partial => 'photos/photo', :collection => @photos

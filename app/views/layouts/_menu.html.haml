@@ -4,11 +4,14 @@
   %li= link_to 'Forums', forums_path
   %li= link_to "Blogs", blogs_path
   %li= link_to 'Photos', photos_path
+  %li= link_to 'Photo Tags', tags_path
   %li= link_to 'Edit Pages', pages_path
 - if user_signed_in?
   %li= current_user.username
   %li= link_to 'My Profile', edit_user_registration_path
+  %li= link_to 'My Friends', friends_path(:user_id => current_user)
   %li= link_to 'New Blog Post', new_entry_path(:user_id => current_user)
+  %li= link_to 'Blog Templates', usertemplates_path
   %li= link_to 'Upload Photo',new_user_photo_path(:user_id => current_user)
   %li= link_to 'Sign out', destroy_user_session_path, :method => :delete
   %li

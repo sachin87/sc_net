@@ -1,8 +1,24 @@
+- content_for :head do
+  = GMap.header
 %h3
   = link_to "#{@photo.user.username}'s Photos",user_photos_path(:user_id => @photo.user)
 %h2= @photo.title
 = image_tag(@photo.photo, :alt => 'img', :size => '200x200')
 %p= @photo.body
+%p
+  Tags:
+  - @photo.tags.each do |tag|
+    = link_to tag.name, user_tag_path(@photo.user, tag.name)
 - if user_signed_in? && @photo.user == current_user
   = link_to 'Edit', edit_user_photo_path(:user_id=>@photo.user, :id=>@photo)
   = link_to 'Delete', user_photo_path(:user_id => @photo.user,:id => @photo),:confirm => 'Are you sure?',:method => :delete
+
+- if @map
+  #gmap
+    = link_to_function 'Hide Map',"Element.hide('gmap'); Element.show('showmaplink')"
+    = @map.to_html
+    = @map.div(:width => 650, :height => 200)
+    %br
+    = link_to_function 'Show Map',"Element.show('gmap'); Element.hide('showmaplink')",:id => 'showmaplink',:style => 'display:none'
+
+= image_tag @photo.public_filename, :id => 'photo'

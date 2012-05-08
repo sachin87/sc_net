@@ -16,18 +16,47 @@ class UserPhotosController < ApplicationController
     @photo = Photo.find_by_user_id_and_id(params[:user_id],
       params[:id],
       :include => :user)
+    if @photo.show_geo && (@photo.geo_lat && @photo.geo_long)
+      @map = GMap.new("map_div_id")
+      @map.control_init(:map_type => false, :small_zoom => true)
+      @map.center_zoom_init([@photo.geo_lat, @photo.geo_long], 8)
+      marker = GMarker.new([@photo.geo_lat, @photo.geo_long],
+        :title => @photo.title,
+        :info_window => @photo.body)
+      @map.overlay_init(marker)
+    end
     respond_to do |format|
       format.html # show.rhtml
       format.xml { render :xml => @photo.to_xml }
     end
   end
 
+
   def new
     @photo = current_user.photos.build
+    @map = GMap.new("map_div_id")
+    @map.control_init(:large_map => true)
+    @map.center_zoom_init([25,0], 1)
+    @map.record_init @map.on_click(
+      "function (overlay, point) { updateLocation(point); }")
   end
 
   def edit
     @photo = current_user.photos.find(params[:id])
+
+    @map = GMap.new("map_div_id")
+    @map.control_init(:large_map => true)
+    if @photo.geo_lat && @photo.geo_long
+      @map.center_zoom_init([@photo.geo_lat, @photo.geo_long], 8)
+      marker = GMarker.new([@photo.geo_lat, @photo.geo_long],
+        :title => @photo.title, :info_window => @photo.body)
+      @map.overlay_init(marker)
+    else
+      @map.center_zoom_init([25,0], 1)
+    end
+    @map.record_init @map.on_click(
+      "function (overlay, point) { updateLocation(point); }")
+
   rescue ActiveRecord::RecordNotFound
     redirect_to :action => 'index'
   end
@@ -75,6 +104,23 @@ class UserPhotosController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to :action => 'index'
+  end
+
+  def add_tag
+    @photo = current_user.photos.find(params[:id])
+    @photo.tag_list += ',' + params[:tag][:name]
+    @photo.save
+    @new_tag = @photo.reload.tags.last
+  end
+
+  def remove_tag
+    @photo = current_user.photos.find(params[:id])
+    @tag_to_delete = @photo.tags.find(params[:tag_id])
+    if @tag_to_delete
+      @photo.tags.delete(@tag_to_delete)
+    else
+      render :nothing => true
+    end
   end
 
 end

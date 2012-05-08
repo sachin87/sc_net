@@ -7,3 +7,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+function updateLocation(point) {
+  document.getElementById('photo_geo_lat').value = point.y;
+  document.getElementById('photo_geo_long').value = point.x;
+  map.clearOverlays();
+  map.addOverlay(new GMarker(new GLatLng(point.y, point.x)));
+}

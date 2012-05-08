@@ -1,0 +1,5 @@
+%li{ :id => "tag-#{edit_tag.id}"}
+  %span
+    = edit_tag.name
+%small
+  = link_to 'delete',user_remove_tag_photo_path(:id => @photo.id,:tag_id => edit_tag.id),:remote => true, :method => :delete

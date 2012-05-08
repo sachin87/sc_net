@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :entries
   has_many :comments
   has_many :photos
+  has_many :usertemplates
   has_and_belongs_to_many :roles
 
   has_many :friendships
@@ -39,6 +40,41 @@ class User < ActiveRecord::Base
 
   def password_required?
     new_record? || !password.blank? || !password_confirmation.blank? ? super : false
+  end
+
+  def get_flickr_id
+    # build the flickr request
+    flickr_request = "http://api.flickr.com/services/rest/?"
+    flickr_request += "method=flickr.people.findByUsername"
+    flickr_request += "&username=#{self.flickr_username}"
+    flickr_request += "&api_key=#{FLICKR_API_KEY}"
+    # perform the API call
+    response = ""
+    open(flickr_request) do |s|
+      response = s.read
+    end
+    # parse the result
+    xml_response = REXML::Document.new(response)
+    if xml_response.root.attributes["stat"] == 'ok'
+      xml_response.root.elements["user"].attributes["nsid"]
+    else
+      nil
+    end
+  end
+
+  def flickr_feed
+    flickr_request = "http://api.flickr.com/services/feeds/photos_public.gne?"
+    flickr_request += "id=#{self.flickr_id}"
+    flickr_request += "&format=rss_200_enc"
+    rss_content = ""
+    open(flickr_request) do |s|
+      rss_content = s.read
+    end
+    return RSS::Parser.parse(rss_content, false)
+  end
+
+  def to_liquid
+    UserDrop.new(self)
   end
 
 end

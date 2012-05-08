@@ -11,6 +11,20 @@
     = f.text_area 'body', :rows => 6, :cols => 40
     = f.hidden_field :user_id
   %p
+    Latitude:
+    = f.text_field 'geo_lat', :size => '8'
+  %p
+    Longitude:
+    = f.text_field 'geo_long', :size => '8'
+  %p
+    Display Location Data?
+    = f.check_box 'show_geo'
+
+  #gmap
+    = @map.to_html
+    = @map.div(:width => 650, :height => 300)
+
+  %p
     Photo:
     %br
     = f.file_field :photo

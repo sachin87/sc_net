@@ -24,6 +24,8 @@ SocialNetworking::Application.routes.draw do
   resources :friends
 
   resources :photos, :only => [:index]
+  resources :tags
+  resources :usertemplates
 
   match '/auth/:provider/callback' => 'authentications#create'
 

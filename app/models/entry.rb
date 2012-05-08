@@ -7,5 +7,9 @@ class Entry < ActiveRecord::Base
   validates :title, :length => { :maximum => 255}
   validates :body, :length => { :maximum => 10000 }
   validates :user_id, :presence => true
-  
+
+  def to_liquid
+    EntryDrop.new(self)
+  end
+
 end

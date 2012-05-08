@@ -1,2 +1,14 @@
+- content_for :head do
+  = GMap.header
+
 %h2 Edit photo details
+
+%h3 Tags
+%ul#taglist
+  = render :partial => 'edit_tag', :collection => @photo.tags
+
+= form_for(:tag,:url => user_add_tag_photo_path(:id => @photo),:method => :put,:remote => true, :complete => "Field.clear('tag-name')") do |f|
+  = f.text_field :name, :id => 'tag-name'
+  = submit_tag 'Add Tag'
+
 = render 'form'
