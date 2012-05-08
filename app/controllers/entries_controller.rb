@@ -16,7 +16,7 @@ class EntriesController < ApplicationController
     @entry = Entry.find_by_id_and_user_id(params[:id],params[:user_id],
       :include => [:user, [:comments => :user]])
     @comment = Comment.new
-    @usertemplate = @user.usertemplates.find_by_name('blog_entry')
+    @usertemplate = current_user.usertemplates.find_by_name('blog_entry')
     if @usertemplate and @usertemplate.body.any?
       @page = Liquid::Template.parse(@usertemplate.body)
       render :text => @page.render({'user' => @user,
