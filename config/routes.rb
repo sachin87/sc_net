@@ -1,4 +1,6 @@
 SocialNetworking::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+
   resources :newsletters
 
   devise_for :admin_users, ActiveAdmin::Devise.config

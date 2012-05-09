@@ -7,16 +7,6 @@
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
-- unless user_signed_in?
-  %body
-    #wrapper
-      #center
-      #centerright
-        %h1
-          %br
-          Already A Member Login Here
-        = yield :sign_in
-- else
   %body
     #sidemenu
       = render 'layouts/menu'

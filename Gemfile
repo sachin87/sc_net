@@ -39,6 +39,7 @@ gem 'acts-as-taggable-on', '~> 2.2.2'
 gem 'ym4r'
 gem 'flickr_fu'
 gem 'liquid'
+gem "ckeditor", "3.7.0.rc3"
 
 # Gems used only for assets and not required
 # in production environments by default.
