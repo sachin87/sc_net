@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :photos
   has_many :usertemplates
-  has_and_belongs_to_many :roles
 
   has_many :friendships
   has_many :friends, :through => :friendships, :class_name => 'User'
@@ -32,10 +31,6 @@ class User < ActiveRecord::Base
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
-  end
-
-  def has_role?(rolename)
-    self.roles.find_by_name(rolename) ? true : false
   end
 
   def password_required?

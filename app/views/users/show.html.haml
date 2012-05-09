@@ -1,3 +1,11 @@
+%h2
+  User:
+  = @user.username
+%p 
+  Member since
+  = @user.created_at.to_s(:long)
+%p
+  = @user.profile
 %h3 Photos
 %ul#photos
   = render :partial => 'photos/photo', :collection => @photos

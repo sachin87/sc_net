@@ -196,3 +196,9 @@ background: url(/images/xfn-me.png) no-repeat right;
 .tag4 { font-size: 160%;}
 .tag5 { font-size: 170%;}
 .tag6 { font-size: 180%;}
+
+/* User table styling */
+table#users { width: 100%;}
+table#users th { font-size: 95%; }
+table#users td { font-size: 90%; }
+

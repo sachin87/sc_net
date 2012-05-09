@@ -32,9 +32,11 @@ SocialNetworking::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
 
   devise_for :users, :controllers => {:registrations => 'registrations'} do
+    
     resources :entries do
       resources :comments
     end
+    
     resources :user_photos
   end
 
@@ -47,6 +49,8 @@ SocialNetworking::Application.routes.draw do
   resources :categories do
     resources :articles, :name_prefix => 'category_'
   end
+
+  get '/user/:username' => 'users#show_by_username'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
