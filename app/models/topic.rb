@@ -5,4 +5,7 @@ class Topic < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :name, :length => {:maximum => 255}
+
+  scope :recents_first, lambda{ order('topics.published_at DESC') }
+  
 end

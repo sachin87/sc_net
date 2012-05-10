@@ -11,6 +11,10 @@ class Article < ActiveRecord::Base
   validates :synopsis, :length => { :maximum => 1000 }
   validates :body, :length => { :maximum => 20000 }
 
+  scope :published, lambda{ where(:published => true) }
+  scope :recents_first, lambda{ order('articles.published_at DESC') }
+  scope :in_category, lambda{ |category| where('articles.category_id = ?',category) }
+
   before_save :update_published_at
 
   private

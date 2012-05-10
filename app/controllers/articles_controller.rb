@@ -2,24 +2,20 @@ class ArticlesController < ApplicationController
 
   def index
     if params[:category_id]
-      @articles = Article.includes(:user).where("articles.category_id= ? AND articles.published=?",params[:category_id].to_i,true).order('articles.published_at DESC').page(params[:page]).per(50)
+      @articles = Article.includes(:user).published.in_category(params[:category_id].to_i).recents_first.page(params[:page]).per(50)
     else
-      @articles = Article.includes(:user).where("articles.published =?",true).order('articles.published_at DESC').page(params[:page]).per(50)
+      @articles = Article.includes(:user).published.recents_first.page(params[:page]).per(50)
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @articles.to_xml }
-      format.rss { render :action => 'rss.rxml', :layout => false }
-      format.atom { render :action => 'atom.rxml', :layout => false }
+      format.xml { render :xml => @articles }
+      format.rss { render :layout => false }
+      format.atom { render :layout => false }
     end
   end
 
   def show
-    if current_user
-      @article = Article.find(params[:id])
-    else
-      @article = Article.find_by_id_and_published(params[:id], true)
-    end
+    @article = Article.published.find(params[:id])
     respond_to do |format|
       format.html
       format.xml { render :xml => @article }

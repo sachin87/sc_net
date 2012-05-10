@@ -8,24 +8,14 @@
   - else
     = link_to 'Login to post a new topic', :controller => 'account',:action => 'login'
 %table#topics
-  %tr
-    %th.name
-      Topics
-    %th.reply
-      Posts
-    %th.author
-      Author
-- @topics.each do |topic|
-  %tr{ :class=>"#{cycle('odd', 'even')}"}
-    %td.name
-      = link_to topic.name, posts_path(:forum_id => @forum,:topic_id => topic)
-  - if current_user and current_user.has_role?('moderator')
-    %br
-    %small
-      = link_to 'delete', topic_path(:forum_id => @forum,:id => topic),:method => :delete,
-        :confirm => 'Are you sure? This will delete this entire topic.'
-      = link_to 'edit', edit_topic_path(:forum_id => @forum, :id => topic)
-      %td.reply
-        = topic.posts_count
-      %td.author= link_to topic.user.username,user_path(:id => topic.user)
+  %thead
+    %th.name Topics
+    %th.reply Posts
+    %th.author Author
+  %tbody
+    - @topics.each do |topic|
+      %tr{ :class=>"#{cycle('odd', 'even')}"}
+        %td.name=link_to topic.name, posts_path(:forum_id => @forum,:topic_id => topic)
+        %td.reply=topic.posts_count
+        %td.author=link_to topic.user.username,user_path(:id => topic.user)
 = paginate @topics

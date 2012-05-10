@@ -8,11 +8,17 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    #sidemenu
-      = render 'layouts/menu'
-    #content
-      #notice
-        = flash[:notice]
-      #error
-        = flash[:error]
-      = yield
+    - unless user_signed_in?
+      = yield :sign_in
+    - else
+      #sidemenu
+        = render 'layouts/menu'
+      #content
+        #notice
+          = flash[:notice]
+        #error
+          = flash[:error]
+        = yield
+
+:javascript
+  var CKEDITOR_BASEPATH = '/assets/ckeditor/';

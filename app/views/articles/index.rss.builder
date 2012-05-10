@@ -21,7 +21,7 @@ xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
         xml.guid
         article_url(article)
         xml.author
-        "#{article.user.email} (#{article.user.username})"
+        "#{article.user.email_with_username})"
       end
     end
   end

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :photos
   has_many :usertemplates
+  has_many :posts
 
   has_many :friendships
   has_many :friends, :through => :friendships, :class_name => 'User'

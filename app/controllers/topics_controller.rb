@@ -2,10 +2,10 @@ class TopicsController < ApplicationController
 
   def index
     @forum = Forum.find(params[:forum_id])
-    @topics = Topic.where(['forum_id = ?', @forum]).includes(:user).order('topics.updated_at DESC').page(params[:page]).per(50)
+    @topics = Topic.where(:forum => @forum).includes(:user).recents_first.page(params[:page]).per(50)
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml { render :xml => @topics.to_xml }
+      format.html
+      format.xml { render :xml => @topics }
     end
   end
 
@@ -19,19 +19,13 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new(:name => params[:topic][:name],
-      :forum_id => params[:forum_id],
-      :user_id => logged_in_user.id)
+    @topic = current_user.topics.build(:name => params[:topic][:name], :forum_id => params[:forum_id])
     @topic.save!
-    @post = Post.new(:body => params[:post][:body],
-      :topic_id => @topic.id,
-      :user_id => logged_in_user.id)
+    @post = current_user.posts.build(:body => params[:post][:body],:topic_id => @topic.id)
     @post.save!
     respond_to do |format|
-      format.html { redirect_to posts_path(:topic_id => @topic,
-          :forum_id => @topic.forum.id) }
-      format.xml { head :created, :location => topic_path(:id => @topic,
-          :forum_id => @topic.forum.id) }
+      format.html { redirect_to posts_path(:topic_id => @topic, :forum_id => @topic.forum.id) }
+      format.xml { head :created, :location => topic_path(:id => @topic,:forum_id => @topic.forum.id) }
     end
   rescue ActiveRecord::RecordInvalid
     respond_to do |format|
